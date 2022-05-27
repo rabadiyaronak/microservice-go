@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"essential-practices/project/working/handler"
+	"essential-practices/project/product-api/handler"
 	"log"
 	"net/http"
 	"os"
@@ -11,13 +11,12 @@ import (
 )
 
 func main() {
-	l := log.New(os.Stdout, "product-api", log.LstdFlags)
-	hh := handler.NewHello(l)
-	gh := handler.NewGoodbye(l)
+	l := log.New(os.Stdout, "product-api:", log.LstdFlags)
+
+	productHandler := handler.NewProduct(l)
 
 	sm := http.NewServeMux()
-	sm.Handle("/", hh)
-	sm.Handle("/goodbye", gh)
+	sm.Handle("/", productHandler)
 
 	s := &http.Server{
 		Addr:         ":9090",
@@ -28,6 +27,8 @@ func main() {
 	}
 
 	go func() {
+		l.Println("Starting server on port 9090")
+
 		err := s.ListenAndServe()
 		if err != nil {
 			l.Fatal(err)
