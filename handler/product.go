@@ -18,6 +18,7 @@ func (p *Product) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 
 	if r.Method == http.MethodGet {
 		p.getProducts(rw, r)
+		return
 	}
 
 	//default catch for not supported method
