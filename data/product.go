@@ -68,7 +68,7 @@ func getNextId() int {
 }
 
 var productList = []*Product{
-	&Product{
+	{
 		ID:          1,
 		Name:        "Latte",
 		Description: "Frothy milky coffee",
@@ -76,8 +76,9 @@ var productList = []*Product{
 		SKU:         "ABC123",
 		CreatedOn:   time.Now().UTC().String(),
 		UpdatedOn:   time.Now().UTC().String(),
+		DeletedOn:   "",
 	},
-	&Product{
+	{
 		ID:          2,
 		Name:        "Espresso",
 		Description: "short and strong coffee without milk",
@@ -85,5 +86,6 @@ var productList = []*Product{
 		SKU:         "ZXC23",
 		CreatedOn:   time.Now().UTC().String(),
 		UpdatedOn:   time.Now().UTC().String(),
+		DeletedOn:   "",
 	},
 }

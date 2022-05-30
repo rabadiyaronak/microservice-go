@@ -2,12 +2,15 @@ package main
 
 import (
 	"context"
-	"essential-practices/project/product-api/handler"
+
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
+
+	"github.com/gorilla/mux"
+	"github.com/rabadiyaronak/product-api/handler"
 )
 
 func main() {
@@ -15,8 +18,20 @@ func main() {
 
 	productHandler := handler.NewProduct(l)
 
-	sm := http.NewServeMux()
-	sm.Handle("/", productHandler)
+	sm := mux.NewRouter()
+
+	getRouter := sm.Methods(http.MethodGet).Subrouter()
+	getRouter.HandleFunc("/", productHandler.GetProducts)
+
+	postRouter := sm.Methods(http.MethodPost).Subrouter()
+	postRouter.HandleFunc("/", productHandler.AddProduct)
+	postRouter.Use(productHandler.MiddlewareValidateProduct)
+
+	putRouter := sm.Methods(http.MethodPut).Subrouter()
+	putRouter.HandleFunc("/{id:[0-9]+}", productHandler.UpdateProduct)
+	putRouter.Use(productHandler.MiddlewareValidateProduct)
+
+	// sm.Handle("/", productHandler)
 
 	s := &http.Server{
 		Addr:         ":9090",
