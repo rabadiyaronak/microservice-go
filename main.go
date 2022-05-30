@@ -31,8 +31,6 @@ func main() {
 	putRouter.HandleFunc("/{id:[0-9]+}", productHandler.UpdateProduct)
 	putRouter.Use(productHandler.MiddlewareValidateProduct)
 
-	// sm.Handle("/", productHandler)
-
 	s := &http.Server{
 		Addr:         ":9090",
 		Handler:      sm,
