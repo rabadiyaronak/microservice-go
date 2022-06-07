@@ -16,7 +16,7 @@ func (p *Product) Delete(rw http.ResponseWriter, r *http.Request) {
 	err := data.DeleteProduct(id)
 
 	if err == data.ErrorProductNotFound {
-		p.l.Println("[ERROR] deleting product id doesn't exist")
+		p.l.Println("[ERROR] deleting record id doesn't exist")
 		rw.WriteHeader(http.StatusNotFound)
 		data.ToJson(&GenericError{Message: err.Error()}, rw)
 		return
