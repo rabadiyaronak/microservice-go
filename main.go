@@ -10,26 +10,32 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/rabadiyaronak/product-api/data"
 	"github.com/rabadiyaronak/product-api/handler"
 )
 
 func main() {
 	l := log.New(os.Stdout, "product-api:", log.LstdFlags)
+	v := data.NewValidation()
 
-	productHandler := handler.NewProduct(l)
+	productHandler := handler.NewProduct(l, v)
 
 	sm := mux.NewRouter()
 
 	getRouter := sm.Methods(http.MethodGet).Subrouter()
-	getRouter.HandleFunc("/", productHandler.GetProducts)
+	getRouter.HandleFunc("/products", productHandler.ListAll)
+	getRouter.HandleFunc("/products/{id[0-9]+}", productHandler.GetProductById)
 
 	postRouter := sm.Methods(http.MethodPost).Subrouter()
-	postRouter.HandleFunc("/", productHandler.AddProduct)
+	postRouter.HandleFunc("/products", productHandler.Create)
 	postRouter.Use(productHandler.MiddlewareValidateProduct)
 
 	putRouter := sm.Methods(http.MethodPut).Subrouter()
-	putRouter.HandleFunc("/{id:[0-9]+}", productHandler.UpdateProduct)
+	putRouter.HandleFunc("/products/{id:[0-9]+}", productHandler.UpdateProduct)
 	putRouter.Use(productHandler.MiddlewareValidateProduct)
+
+	deleteRouter := sm.Methods(http.MethodDelete).Subrouter()
+	deleteRouter.HandleFunc("/products/{id:[0-9]+}", productHandler.UpdateProduct)
 
 	s := &http.Server{
 		Addr:         ":9090",

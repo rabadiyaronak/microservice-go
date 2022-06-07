@@ -1,13 +1,8 @@
 package data
 
 import (
-	"encoding/json"
 	"fmt"
-	"io"
-	"regexp"
 	"time"
-
-	"github.com/go-playground/validator/v10"
 )
 
 type Product struct {
@@ -23,35 +18,18 @@ type Product struct {
 
 type Products []*Product
 
-func (p *Product) Validate() error {
-	validate := validator.New()
-	validate.RegisterValidation("sku", validateSku)
-
-	return validate.Struct(p)
-}
-
-func validateSku(fl validator.FieldLevel) bool {
-
-	reg := regexp.MustCompile(`[a-z]+-[a-z]+-[a-z]+`)
-	match := reg.FindAllString(fl.Field().String(), -1)
-
-	if len(match) != 1 {
-		return false
-	}
-
-	return true
-}
-
-func (p *Products) ToJson(w io.Writer) error {
-	return json.NewEncoder(w).Encode(p)
-}
-
-func (p *Product) FromJSON(r io.Reader) error {
-	return json.NewDecoder(r).Decode(p)
-}
-
 func GetProducts() Products {
 	return productList
+}
+
+func GetProductById(id int) (*Product, error) {
+	i := findIndexByProductId(id)
+
+	if i == -1 {
+		return nil, ErrorProductNotFound
+	}
+
+	return productList[i], nil
 }
 
 func AddProduct(p *Product) {
@@ -60,28 +38,41 @@ func AddProduct(p *Product) {
 }
 
 func UpdateProduct(id int, p *Product) error {
-	_, pos, err := findProduct(id)
+	i := findIndexByProductId(id)
 
-	if err != nil {
-		return err
+	if i == -1 {
+		return ErrorProductNotFound
 	}
 
 	p.ID = id
-	productList[pos] = p
+	productList[i] = p
 
 	return nil
 }
 
+func DeleteProduct(id int) error {
+	i := findIndexByProductId(id)
+
+	if i == -1 {
+		return ErrorProductNotFound
+	}
+
+	productList = append(productList[:i], productList[i+1])
+
+	return nil
+
+}
+
 var ErrorProductNotFound = fmt.Errorf("Product Not Found")
 
-func findProduct(id int) (*Product, int, error) {
+func findIndexByProductId(id int) int {
 	for i, p := range productList {
 		if p.ID == id {
-			return p, i, nil
+			return i
 		}
 	}
 
-	return nil, -1, ErrorProductNotFound
+	return -1
 }
 
 func getNextId() int {
