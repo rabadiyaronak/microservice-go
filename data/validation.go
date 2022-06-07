@@ -44,11 +44,13 @@ func NewValidation() *Validation {
 
 func (v *Validation) Validate(i interface{}) ValidationErrors {
 
-	errs := v.validate.Struct(i).(validator.ValidationErrors)
+	ve := v.validate.Struct(i)
 
-	if len(errs) == 0 {
+	if ve == nil {
 		return nil
 	}
+
+	errs := ve.(validator.ValidationErrors)
 
 	var returnErrors ValidationErrors
 	for _, err := range errs {
