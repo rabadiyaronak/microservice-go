@@ -6,6 +6,13 @@ import (
 	"github.com/rabadiyaronak/product-api/data"
 )
 
+//	swagger:route GET /products products listProducts
+//	Returns a list of products
+//	responses:
+//		200: productsResponse
+//  	501: errorResponse
+
+//GetProducts returns the product list from
 func (p *Product) ListAll(rw http.ResponseWriter, r *http.Request) {
 	p.l.Println("[DEBUG] Get All products")
 
@@ -19,6 +26,14 @@ func (p *Product) ListAll(rw http.ResponseWriter, r *http.Request) {
 
 }
 
+//	swagger:route GET /products/{id} products getProductById
+//	Returns Product with given id
+//	responses:
+//		200: productResponse
+// 		404: errorResponse
+// 		501: errorResponse
+//
+//GetProducts returns the product list from
 func (p *Product) GetProductById(rw http.ResponseWriter, r *http.Request) {
 	p.l.Println("[DEBUG] Get Product by id")
 

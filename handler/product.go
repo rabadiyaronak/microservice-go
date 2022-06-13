@@ -1,3 +1,18 @@
+// Package classification  Prodcut Api
+//
+// Documantation for Product Api
+//
+// 	Schemes: http
+// 	Host: localhost:9090
+// 	BasePath: /
+// 	Version: 1.0.0
+//
+// 	Consumes:
+// 	- application/json
+//
+//	Produces:
+// 	- application/json
+//	swagger:meta
 package handler
 
 import (
@@ -21,14 +36,14 @@ func NewProduct(l *log.Logger, v *data.Validation) *Product {
 	return &Product{l, v}
 }
 
-var ErrInvalidProductPath = fmt.Errorf("Invalid Path, path shoudl be /product/[id]")
+var ErrInvalidProductPath = fmt.Errorf("invalid Path, path shoudl be /product/[id]")
 
 type GenericError struct {
-	Message string `json: message`
+	Message string `json:"message"`
 }
 
 type ValidationError struct {
-	Message []string `json: message`
+	Message []string `json:"message"`
 }
 
 func getProductIdFromPathVariable(r *http.Request) int {

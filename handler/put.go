@@ -6,6 +6,16 @@ import (
 	"github.com/rabadiyaronak/product-api/data"
 )
 
+// swagger:route PUT /products/{id} products updateProduct
+// Update a products details
+//
+// responses:
+//	201: noContentResponse
+//  404: errorResponse
+//  422: errorValidation
+//  501: errorResponse
+
+// Update handles PUT requests to update products
 func (p *Product) UpdateProduct(rw http.ResponseWriter, r *http.Request) {
 	p.l.Println("[DEBUG] Update product")
 

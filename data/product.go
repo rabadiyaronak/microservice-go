@@ -5,15 +5,41 @@ import (
 	"time"
 )
 
+//	Product defines model of product API
+//	swagger:model
 type Product struct {
-	ID          int     `json:"id"`
-	Name        string  `json:"name" validate:"required"`
-	Description string  `json:"description"`
-	Price       float32 `json:"price" validate:"gt=0"`
-	SKU         string  `json:"sku" validate:"required,sku"`
-	CreatedOn   string  `json:"-"`
-	UpdatedOn   string  `json:"-"`
-	DeletedOn   string  `json:"-"`
+	// id for the product
+	//	required: false
+	// 	min: 1
+	//	pattern: [0-9]+
+	ID int `json:"id"` //Unique identifier for the product
+
+	//	name for the product
+	//
+	//	required: true
+	// max length : 255
+	Name string `json:"name" validate:"required"`
+
+	// the description for this poduct
+	//
+	// required: false
+	// max length: 10000
+	Description string `json:"description"`
+
+	// the price for the product
+	//
+	// required: true
+	// min: 0.01
+	Price float32 `json:"price" validate:"gt=0"`
+
+	// the SKU for the product
+	//
+	// required: true
+	// pattern: [a-z]+-[a-z]+-[a-z]+
+	SKU       string `json:"sku" validate:"required,sku"`
+	CreatedOn string `json:"-"`
+	UpdatedOn string `json:"-"`
+	DeletedOn string `json:"-"`
 }
 
 type Products []*Product
@@ -33,6 +59,7 @@ func GetProductById(id int) (*Product, error) {
 }
 
 func AddProduct(p *Product) {
+	//get next sequence id
 	p.ID = getNextId()
 	productList = append(productList, p)
 }
