@@ -3,14 +3,16 @@ consumes:
 - application/json
 definitions:
   GenericError:
+    description: GenericError generic error
     properties:
       message:
+        description: message
         type: string
         x-go-name: Message
     type: object
-    x-go-package: github.com/rabadiyaronak/product-api/handler
+    x-go-package: github.com/rabadiyaronak/product-api/sdk/models
   Product:
-    description: Product defines model of product API
+    description: Product Product defines model of product API
     properties:
       description:
         description: the description for this poduct
@@ -45,16 +47,18 @@ definitions:
     - price
     - sku
     type: object
-    x-go-package: github.com/rabadiyaronak/product-api/data
+    x-go-package: github.com/rabadiyaronak/product-api/sdk/models
   ValidationError:
+    description: ValidationError validation error
     properties:
       message:
+        description: message
         items:
           type: string
         type: array
         x-go-name: Message
     type: object
-    x-go-package: github.com/rabadiyaronak/product-api/handler
+    x-go-package: github.com/rabadiyaronak/product-api/sdk/models
 host: localhost:9090
 info:
   description: Documantation for Product Api
@@ -107,7 +111,7 @@ paths:
         pattern: '[0-9]+'
         required: true
         type: integer
-        x-go-name: Id
+        x-go-name: ID
       responses:
         "201":
           $ref: '#/responses/noContentResponse'
@@ -128,7 +132,7 @@ paths:
         pattern: '[0-9]+'
         required: true
         type: integer
-        x-go-name: Id
+        x-go-name: ID
       responses:
         "200":
           $ref: '#/responses/productResponse'
@@ -149,7 +153,7 @@ paths:
         pattern: '[0-9]+'
         required: true
         type: integer
-        x-go-name: Id
+        x-go-name: ID
       - description: |-
           Product data structure to Update or Create.
           Note: the id field is ignored by update and create operations

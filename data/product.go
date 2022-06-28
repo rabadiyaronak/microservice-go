@@ -12,7 +12,7 @@ type Product struct {
 	//	required: false
 	// 	min: 1
 	//	pattern: [0-9]+
-	ID int `json:"id"` //Unique identifier for the product
+	Id int `json:"id"` //Unique identifier for the product
 
 	//	name for the product
 	//
@@ -60,7 +60,7 @@ func GetProductById(id int) (*Product, error) {
 
 func AddProduct(p *Product) {
 	//get next sequence id
-	p.ID = getNextId()
+	p.Id = getNextId()
 	productList = append(productList, p)
 }
 
@@ -71,7 +71,7 @@ func UpdateProduct(id int, p *Product) error {
 		return ErrorProductNotFound
 	}
 
-	p.ID = id
+	p.Id = id
 	productList[i] = p
 
 	return nil
@@ -94,7 +94,7 @@ var ErrorProductNotFound = fmt.Errorf("Product Not Found")
 
 func findIndexByProductId(id int) int {
 	for i, p := range productList {
-		if p.ID == id {
+		if p.Id == id {
 			return i
 		}
 	}
@@ -104,12 +104,12 @@ func findIndexByProductId(id int) int {
 
 func getNextId() int {
 	lp := productList[len(productList)-1]
-	return lp.ID + 1
+	return lp.Id + 1
 }
 
 var productList = []*Product{
 	{
-		ID:          1,
+		Id:          1,
 		Name:        "Latte",
 		Description: "Frothy milky coffee",
 		Price:       2.45,
@@ -119,7 +119,7 @@ var productList = []*Product{
 		DeletedOn:   "",
 	},
 	{
-		ID:          2,
+		Id:          2,
 		Name:        "Espresso",
 		Description: "short and strong coffee without milk",
 		Price:       1.99,

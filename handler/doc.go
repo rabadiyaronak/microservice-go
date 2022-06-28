@@ -46,7 +46,7 @@ type productIdPathParam struct {
 	//	required: true
 	// 	min: 1
 	//	pattern: [0-9]+
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
 // No content is returned by this API endpoint

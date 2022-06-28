@@ -14,6 +14,7 @@ import (
 
 //GetProducts returns the product list from
 func (p *Product) ListAll(rw http.ResponseWriter, r *http.Request) {
+	rw.Header().Add("Content-Type", "application/json")
 	p.l.Println("[DEBUG] Get All products")
 
 	products := data.GetProducts()
@@ -35,6 +36,7 @@ func (p *Product) ListAll(rw http.ResponseWriter, r *http.Request) {
 //
 //GetProducts returns the product list from
 func (p *Product) GetProductById(rw http.ResponseWriter, r *http.Request) {
+	rw.Header().Add("Content-Type", "application/json")
 	p.l.Println("[DEBUG] Get Product by id")
 
 	id := getProductIdFromPathVariable(r)
