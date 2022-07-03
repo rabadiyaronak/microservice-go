@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/go-openapi/runtime/middleware"
+	gohandlers "github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/rabadiyaronak/product-api/data"
 	"github.com/rabadiyaronak/product-api/handler"
@@ -22,6 +23,8 @@ func main() {
 	productHandler := handler.NewProduct(l, v)
 
 	sm := mux.NewRouter()
+
+	//Handlers for API
 
 	getRouter := sm.Methods(http.MethodGet).Subrouter()
 	getRouter.HandleFunc("/products", productHandler.ListAll)
@@ -38,14 +41,18 @@ func main() {
 	deleteRouter := sm.Methods(http.MethodDelete).Subrouter()
 	deleteRouter.HandleFunc("/products/{id:[0-9]+}", productHandler.Delete)
 
+	// Handler for documentation
 	opts := middleware.RedocOpts{SpecURL: "/swagger.yaml"}
 	sh := middleware.Redoc(opts, nil)
 	getRouter.Handle("/docs", sh)
 	getRouter.Handle("/swagger.yaml", http.FileServer(http.Dir("./")))
 
+	//CORS
+	corsHandler := gohandlers.CORS(gohandlers.AllowedOrigins([]string{"*"}))
+
 	s := &http.Server{
 		Addr:         ":9090",
-		Handler:      sm,
+		Handler:      corsHandler(sm),
 		ReadTimeout:  1 * time.Second,
 		WriteTimeout: 1 * time.Second,
 		IdleTimeout:  120 * time.Second,
