@@ -9,3 +9,8 @@ swagger:
 
 run: swagger
 	go run main.go
+
+swagger-gen-client:
+	@echo Generating cliet for product-api. path= ./sdk
+
+	swagger generate client -A product-api -t ./sdk/ -f swagger.yaml
