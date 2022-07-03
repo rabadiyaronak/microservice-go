@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/rabadiyaronak/product-api/sdk/models"
+	"github.com/rabadiyaronak/microserive-go/product-api/sdk/models"
 )
 
 // ListProductsReader is a Reader for the ListProducts structure.

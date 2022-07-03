@@ -10,7 +10,7 @@ definitions:
         type: string
         x-go-name: Message
     type: object
-    x-go-package: github.com/rabadiyaronak/product-api/sdk/models
+    x-go-package: github.com/rabadiyaronak/microserive-go/product-api/sdk/models
   Product:
     description: Product Product defines model of product API
     properties:
@@ -47,7 +47,7 @@ definitions:
     - price
     - sku
     type: object
-    x-go-package: github.com/rabadiyaronak/product-api/sdk/models
+    x-go-package: github.com/rabadiyaronak/microserive-go/product-api/sdk/models
   ValidationError:
     description: ValidationError validation error
     properties:
@@ -58,7 +58,7 @@ definitions:
         type: array
         x-go-name: Message
     type: object
-    x-go-package: github.com/rabadiyaronak/product-api/sdk/models
+    x-go-package: github.com/rabadiyaronak/microserive-go/product-api/sdk/models
 host: localhost:9090
 info:
   description: Documantation for Product Api

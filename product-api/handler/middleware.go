@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/rabadiyaronak/product-api/data"
+	"github.com/rabadiyaronak/microserive-go/product-api/data"
 )
 
 func (p *Product) MiddlewareValidateProduct(next http.Handler) http.Handler {

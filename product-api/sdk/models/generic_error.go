@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// GenericError generic error
+// GenericError GenericError generic error
 //
 // swagger:model GenericError
 type GenericError struct {

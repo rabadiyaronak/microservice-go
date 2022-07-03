@@ -1,6 +1,6 @@
 package handler
 
-import "github.com/rabadiyaronak/product-api/data"
+import "github.com/rabadiyaronak/microserive-go/product-api/data"
 
 //
 // NOTE: Types defined here are purely for documentation purposes

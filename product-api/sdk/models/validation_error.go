@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// ValidationError validation error
+// ValidationError ValidationError validation error
 //
 // swagger:model ValidationError
 type ValidationError struct {

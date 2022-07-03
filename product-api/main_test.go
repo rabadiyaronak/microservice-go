@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/rabadiyaronak/product-api/sdk/client"
-	"github.com/rabadiyaronak/product-api/sdk/client/products"
+	"github.com/rabadiyaronak/microserive-go/product-api/sdk/client"
+	"github.com/rabadiyaronak/microserive-go/product-api/sdk/client/products"
 	"github.com/stretchr/testify/assert"
 )
 
