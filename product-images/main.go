@@ -7,6 +7,8 @@ import (
 	"os/signal"
 	"time"
 
+	gohandlers "github.com/gorilla/handlers"
+
 	"github.com/gorilla/mux"
 	hclog "github.com/hashicorp/go-hclog"
 	"github.com/rabadiyaronak/microserive-go/product-images/files"
@@ -39,10 +41,14 @@ func main() {
 	// create a new serve mux and register the handlers
 	sm := mux.NewRouter()
 
+	//handle CORS
+	ch := gohandlers.CORS(gohandlers.AllowedOrigins([]string{"*"}))
+
 	// filename regex: {filename:[a-zA-Z]+\\.[a-z]{3}}
 	// problem with FileServer is that it is dumb
 	ph := sm.Methods(http.MethodPost).Subrouter()
-	ph.HandleFunc("/images/{id:[0-9]+}/{filename:[a-zA-Z]+\\.[a-z]{3}}", fh.ServeHTTP)
+	ph.HandleFunc("/images/{id:[0-9]+}/{filename:[a-zA-Z]+\\.[a-z]{3}}", fh.UploadREST)
+	ph.HandleFunc("/", fh.UploadMultipart)
 
 	// get files
 	gh := sm.Methods(http.MethodGet).Subrouter()
@@ -53,7 +59,7 @@ func main() {
 
 	s := http.Server{
 		Addr:         ":9091",
-		Handler:      sm,
+		Handler:      ch(sm),
 		ErrorLog:     serverLogger,
 		ReadTimeout:  1 * time.Second,
 		WriteTimeout: 1 * time.Second,
