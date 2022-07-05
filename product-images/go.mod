@@ -1,4 +1,4 @@
-module github.com/rabadiyaronak/microserive-go/product-images
+module github.com/rabadiyaronak/microservice-go/product-images
 
 go 1.18
 

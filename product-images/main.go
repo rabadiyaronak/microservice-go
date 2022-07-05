@@ -44,6 +44,9 @@ func main() {
 	//handle CORS
 	ch := gohandlers.CORS(gohandlers.AllowedOrigins([]string{"*"}))
 
+	//GZip handler Middleware
+	mw := handlers.NewGZipHandler(logger)
+
 	// filename regex: {filename:[a-zA-Z]+\\.[a-z]{3}}
 	// problem with FileServer is that it is dumb
 	ph := sm.Methods(http.MethodPost).Subrouter()
@@ -56,6 +59,7 @@ func main() {
 		"/images/{id:[0-9]+}/{filename:[a-zA-Z]+\\.[a-z]{3}}",
 		http.StripPrefix("/images/", http.FileServer(http.Dir(basePathForResourceServer))),
 	)
+	gh.Use(mw.GZipMiddleware)
 
 	s := http.Server{
 		Addr:         ":9091",

@@ -1,4 +1,4 @@
-module github.com/rabadiyaronak/microserive-go/product-api
+module github.com/rabadiyaronak/microservice-go/product-api
 
 go 1.18
 
