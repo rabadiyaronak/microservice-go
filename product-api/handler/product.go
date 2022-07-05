@@ -22,7 +22,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/rabadiyaronak/microserive-go/product-api/data"
+	"github.com/rabadiyaronak/microservice-go/product-api/data"
 )
 
 type KeyProduct struct{}

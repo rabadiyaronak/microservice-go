@@ -3,16 +3,16 @@ consumes:
 - application/json
 definitions:
   GenericError:
-    description: GenericError generic error
+    description: GenericError GenericError generic error
     properties:
       message:
         description: message
         type: string
         x-go-name: Message
     type: object
-    x-go-package: github.com/rabadiyaronak/microserive-go/product-api/sdk/models
+    x-go-package: github.com/rabadiyaronak/microservice-go/product-api/sdk/models
   Product:
-    description: Product Product defines model of product API
+    description: Product defines model of product API
     properties:
       description:
         description: the description for this poduct
@@ -25,7 +25,7 @@ definitions:
         minimum: 1
         pattern: '[0-9]+'
         type: integer
-        x-go-name: ID
+        x-go-name: Id
       name:
         description: name for the product
         maxLength: 255
@@ -47,9 +47,9 @@ definitions:
     - price
     - sku
     type: object
-    x-go-package: github.com/rabadiyaronak/microserive-go/product-api/sdk/models
+    x-go-package: github.com/rabadiyaronak/microservice-go/product-api/data
   ValidationError:
-    description: ValidationError validation error
+    description: ValidationError ValidationError validation error
     properties:
       message:
         description: message
@@ -58,7 +58,7 @@ definitions:
         type: array
         x-go-name: Message
     type: object
-    x-go-package: github.com/rabadiyaronak/microserive-go/product-api/sdk/models
+    x-go-package: github.com/rabadiyaronak/microservice-go/product-api/sdk/models
 host: localhost:9090
 info:
   description: Documantation for Product Api
