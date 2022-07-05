@@ -8,11 +8,11 @@ import (
 	"time"
 
 	gohandlers "github.com/gorilla/handlers"
+	"github.com/rabadiyaronak/microservice-go/product-images/files"
+	"github.com/rabadiyaronak/microservice-go/product-images/handlers"
 
 	"github.com/gorilla/mux"
 	hclog "github.com/hashicorp/go-hclog"
-	"github.com/rabadiyaronak/microserive-go/product-images/files"
-	"github.com/rabadiyaronak/microserive-go/product-images/handlers"
 )
 
 func main() {
