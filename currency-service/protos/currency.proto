@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+
+// option go_package = "github.com/rabadiyaronak/microservice-go/currency-service/currency" ;
+
+
+option go_package = "/currency" ;
+
+package currency;
+
+service Currency {
+  // GetRate return the exchange rate for provided source and destination
+    rpc GetRate(GetRateRequest) returns (GetRateResponse);
+}
+
+// Currency.GetRate request message
+message GetRateRequest {
+  //base currency code
+  string Base = 1;
+
+  //destination currency code
+  string Destination = 2;
+}
+
+// Currency.GetRate response message
+// it contains floating point number rate which represent rate w.r.t. a single unit
+message GetRateResponse {
+
+  float Rate = 1;
+}
